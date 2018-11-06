@@ -39,6 +39,13 @@
         <?php echo $this->session->flashdata('message'); ?>
       </div>
     <?php endif ?>
+
+    <?php if (validation_errors()): ?>
+      <div class="alert alert-warning">
+        <button class="close" data-dismiss="alert">&times;</button>
+        <?php echo validation_errors(); ?>
+      </div>
+    <?php endif ?>
     
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
