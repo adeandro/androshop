@@ -33,8 +33,16 @@
     <a href="../../index2.html"><b>ANDRO </b>Shop</a>
   </div>
   <!-- /.login-logo -->
+    <?php if ($this->session->flashdata('message')): ?>
+      <div class="alert alert-warning">
+        <button class="close" data-dismiss="alert">&times;</button>
+        <?php echo $this->session->flashdata('message'); ?>
+      </div>
+    <?php endif ?>
+    
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
+    
 
     <form action="../../index2.html" method="post">
       <div class="form-group has-feedback">
