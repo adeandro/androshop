@@ -6,12 +6,37 @@ class Auth extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('member_model');
-		
+		if ($this->ion_auth->logged_in()) {
+			if ($this->ion_auth->is_admin()) {
+				redirect('admin','refresh');
+			}else{
+				redirect('member','refresh');
+			}
+		}
 	}
 
 	public function index()
 	{
+		$this->form_validation->set_rules('email','Email','required|valid_email');
+		$this->form_validation->set_rules('password','Password','required');
+
+		if ($this->form_validation->run() == True) {
+			$email 		= $this->input->post('email');
+			$password 	= $this->input->post('password');
+
+			if ($this->ion_auth->login($email, $password)) {
+				
+				if ($this->ion_auth->is_admin()) {
+					$this->session->set_flashdata('message', 'Selamat datang..');
+					redirect('admin','refresh');
+				}else{
+					$this->session->set_flashdata('message', 'Selamat datang..');
+					redirect('member','refresh');
+				}
+			}
+
+		}
+
 		$this->load->view('auth/login');
 	}
 
@@ -22,11 +47,12 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
 
 		if ($this->form_validation->run() == TRUE) {
-			$username 	= $this->input->post('username');
-			$email 		= $this->input->post('email');
-			$password 	= $this->input->post('password');
+			$username 			= $this->input->post('username');
+			$email 				= $this->input->post('email');
+			$password 			= $this->input->post('password');
+			$additional_data	= array('id_level' => 2);
 
-			if ($this->member_model->create_member($username, $email, $password) == TRUE) {
+			if ($this->ion_auth->register($username, $password, $email, $additional_data)) {
 					$this->session->set_flashdata('message', 'Berhasil mendaftar, silahkan login');
 					redirect('auth','refresh');
 				}else{
@@ -46,6 +72,12 @@ class Auth extends CI_Controller {
 	public function create_member()
 	{
 
+	}
+
+	public function logout()
+	{
+		$this->ion_auth->logout();
+		redirect('/','refresh');
 	}
 
 }
