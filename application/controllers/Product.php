@@ -155,6 +155,17 @@ class Product extends CI_Controller {
 		$this->template->load('master_template','content','product/edit',$data);
 	}
 
+	public function delete($id)
+	{
+		if ($this->product_model->delete_product($id)) {
+			$this->session->set_flashdata('success', 'Product berhasil di hapus');
+			redirect('product','refresh');
+		}else{
+			$this->session->set_flashdata('error', 'Product tidak di hapus');
+			redirect('product','refresh');
+		}
+	}
+
 	// function kategory
 	public function kategory()
 	{
@@ -195,7 +206,17 @@ class Product extends CI_Controller {
 					redirect('product/kategory','refresh');
 				}
 			}
-		}	
+		}
+	public function delete_kategory($id)
+	{
+		if ($this->product_model->delete_kategory($id)) {
+			$this->session->set_flashdata('success', 'Kategory Berhasil di hapus');
+			redirect('product/kategory','refresh');
+		}else{
+			$this->session->set_flashdata('error', 'Kategory tidak di hapus');
+			redirect('product/kategory','refresh');
+		}
+	}
 
 }
 

@@ -1,7 +1,7 @@
 <?php if ($this->session->flashdata('success')): ?>
 	<div class="alert alert-info">
 		<button class="close" data-dismiss="alert">&times;</button>
-		<?php echo $this->session->flashdata('message'); ?>
+		<?php echo $this->session->flashdata('success'); ?>
 	</div>
 <?php elseif($this->session->flashdata('error')): ?>
 	<div class="alert alert-warning">
@@ -101,23 +101,26 @@
 
 <!-- modal here -->
 
-<?php 
+<?php
 
 foreach ($kategory as $kategori) {
-	echo "<div = 'modal fade' id='modal". $kategori->id_kategory ."'>
-			<div class='modal-dialog'>
-				<div class='modal-content'>
-					<div class='modal-header'>
-						<button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                  		<span aria-hidden='true'>&times;</span></button>
-                  		<h4>Apakah anda yakin akan menghapus data ini ?</h4>
-					</div>
-					<div class='modal-body'>
-						aloha
-					</div>
-				</div>
+	echo "<div class='modal modal-warning fade' id='modal". $kategori->id_kategory ."'>
+	<div class='modal-dialog'>
+		<div class='modal-content'>
+			<div class='modal-header'>				
+				<h4 class='modal-title'>Apakah anda yakin mau menghapus kategory <i class='text-red'>". $kategori->nama_kategory ."</i> ?</h4>
+			</div>			
+			<div class='modal-footer'>			
+				<form action='". base_url('product/delete_kategory/'.$kategori->id_kategory) ."' method='post'>
+					<button class='btn btn-primary btn-flat' data-dismiss='modal'>Batal</button>
+					<button type='submit' class='btn btn-danger btn-flat'>Lanjutkan</button>
+				</form>
 			</div>
-		</div>";
+		</div>
+	</div>
+</div>";	
 }
-
+	
  ?>
+
+

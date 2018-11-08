@@ -49,6 +49,15 @@ class Product_model extends CI_Model {
 		return $data;
 	}
 
+	public function delete_product($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->delete('product');
+		return TRUE;
+	}
+
+	// model kategory
+
 	public function insert_kategory($kategory)
 	{
 		$this->db->insert('kategory',['nama_kategory' => $kategory]);
@@ -66,6 +75,13 @@ class Product_model extends CI_Model {
 	{
 		$data = $this->db->get('kategory');
 		return $data;
+	}
+
+	public function delete_kategory($id)
+	{
+		$this->db->where('id_kategory', $id);
+		$this->db->delete('kategory');
+		return TRUE;
 	}
 
 
