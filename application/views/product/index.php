@@ -32,7 +32,7 @@
 				echo "<tr>
 						<td>". $no++ ."</td>
 						<td><a href='#' data-toggle='modal' data-target='#detail". $product->id ."'>". $product->nama_product ."</a></td>
-						<td>". $product->harga ."</td>
+						<td>Rp. ". number_format($product->harga) ."</td>
 						<td>". $product->nama_kategory ."</td>
 						<td>". substr($product->deskripsi, 0, 20) ." ...</td>
 						<td>
@@ -92,7 +92,7 @@ foreach ($products as $product) {
 										:
 									</td>
 									<td>
-										". $product->harga ."
+										Rp. ". number_format($product->harga) ."
 									</td>
 								</tr>
 								<tr>

@@ -10,6 +10,9 @@ class Admin extends CI_Controller {
 			$this->session->set_flashdata('message', 'Anda harus login untuk mengakses halaman admin');
 			redirect('auth','refresh');
 		}
+		if (!$this->ion_auth->is_admin()) {
+			redirect('auth','refresh');
+		}
 	}
 
 	public function index()

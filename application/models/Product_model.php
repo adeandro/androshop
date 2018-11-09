@@ -39,6 +39,16 @@ class Product_model extends CI_Model {
 		return $data;
 	}
 
+	public function get_product_desc()
+	{
+		$this->db->select('*');
+		$this->db->from('product');
+		$this->db->join('kategory','product.id_kategory = kategory.id_kategory','left');
+		$this->db->order_by('id','DESC');
+		$data = $this->db->get();
+		return $data;
+	}
+
 	public function get_product_by_id($id)
 	{
 		$this->db->select('*');

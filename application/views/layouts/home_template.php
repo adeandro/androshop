@@ -39,130 +39,103 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
 
-  <header class="main-header">
-    <!-- Logo -->
-    <a href="<?php echo base_url('') ?>" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>ANDRO</b> Shop</span>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
-
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          
-          <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              
-              <span class="hidden-xs">
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="#" class="navbar-brand">ANDRO Shop</a>
+      </div>
+      <div>
+        <ul class="nav navbar-nav pull-right">
+          <?php if (!$this->ion_auth->logged_in()): ?>
+            <li><a href="<?php echo base_url('auth/register') ?>">Datar</a></li>
+            <li><a href="<?php echo base_url('auth') ?>">Login <i class="fa fa-sign-in"></i></a></li>
+          <?php elseif($this->ion_auth->logged_in()): ?>
+              <?php if (!$this->ion_auth->is_admin()): ?>
                 <?php 
-                  $data = $this->ion_auth->user()->row();
-                  echo $data->username;
-                 ?>
-              </span>
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">             
-              <li>
-                <?php if ($this->ion_auth->is_admin()): ?>
-                    <a href="<?php echo base_url('admin/logout'); ?>" > Sign out <i class="fa fa-sign-out"></i></a>
-                  <?php else: ?>
-                    <a href="<?php echo base_url('member/logout'); ?>" > Sign out <i class="fa fa-sign-out"></i></a>
-                  <?php endif ?>
-              </li>
-            </ul>
-          </li>
-          <!-- Control Sidebar Toggle Button -->
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
+                $user = $this->ion_auth->user()->row();
+                echo "
+                <li><a href='#'><i class='fa fa-shopping-cart'></i></a></li>
+                <li class='dropdown'>
+                  <a href='#' class='dropdown-toggle' data-toggle='dropdown'>". $user->username ." <i class='caret'></i> </a>
+                  <ul class='dropdown-menu'>
+                    <li><a href='". base_url('member') ."'>Dashboard <i class='fa fa-dashboard pull-right'></i></a></li>
+                    <li><a href='". base_url('member/logout') ."'>Log Out <i class='fa fa-sign-out pull-right'></i></a></li>
+                  </ul>
+                </li>";
+               ?>
+              <?php elseif($this->ion_auth->is_admin()) : ?>
+                <?php 
+                $user = $this->ion_auth->user()->row();
+                echo "
+                <li><a href='#'><i class='fa fa-shopping-cart'></i></a></li>
+                <li class='dropdown'>
+                  <a href='#' class='dropdown-toggle' data-toggle='dropdown'>". $user->username ." <i class='caret'></i> </a>
+                  <ul class='dropdown-menu'>
+                    <li><a href='". base_url('admin') ."'>Dashboard <i class='fa fa-dashboard pull-right'></i></a></li>
+                    <li><a href='". base_url('admin/logout') ."'>Log Out <i class='fa fa-sign-out pull-right'></i></a></li>
+                  </ul>
+                </li>";
+               ?>
+              <?php endif ?>
+          <?php endif ?>
         </ul>
       </div>
-    </nav>
-  </header>
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar user panel -->
-      
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu" data-widget="tree">
-      
-        <li>
-          <a href="<?php echo base_url('admin') ?>">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-          </a>
-        </li>
-        <li>
-          <a href="<?php echo base_url('admin/user_list') ?>">
-            <i class="fa fa-user"></i> <span>Profile</span>
-          </a>
-        </li>
-        <li>
-          <a href="<?php echo base_url('admin/user_list') ?>">
-            <i class="fa fa-users"></i> <span>User List</span>
-          </a>
-        </li>
-        <?php if ($this->ion_auth->is_admin()): ?>
-          <li class="treeview">
-            <a href="#">
-              <i class="fa fa-cube"></i> <span>Produk </span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li>
-                <a href="<?php echo base_url('product') ?>"><i class="fa fa-clone"></i> <span>Produk List</span></a>
-              </li>
-              <li>
-                <a href="<?php echo base_url('product/kategory') ?>"><i class="fa fa-clone"></i> <span>Produk Kategory</span></a>
-              </li>
-            </ul>
-          </li>
-        <?php endif ?>
-      </ul>
-    </section>
-    <!-- /.sidebar -->
-  </aside>
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      
-      <ol class="breadcrumb">
-        <li><a href="<?php echo base_url($this->uri->segment(1)); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"><?php echo $title; ?></li>
-      </ol>
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-      <!-- Small boxes (Stat box) -->
-         <?php echo $content; ?>
-    </section>
-    <!-- /.content -->
-  </div>>
+    </div>
+  </div>
+  <div class="container">
+    <div class="callout callout-info  ">
+      <i class="fa fa-bullhorn"></i> Selamat datang di ANDROShop
+    </div>
+    
+    <div class="row">
+      <div class="col-xs-8">
+        <div class="box box-primary">
+          <?php echo $content ?>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="box box-warning">
+          <div class="box-header with-border">
+            <form action="#">
+              <div class="form-group">
+                <input type="text" class="form-control" name="cari" placeholder="Cari product...">
+                <button class="btn btn-block btn-default btn-flat"><i class="fa fa-search"></i></button>
+              </div>
+            </form>
+            <br>
+            <h3 class="box-title">Lates Product</h3>
+          </div>
+          <div class="box-body">
+            <?php
+              $this->load->model('product_model');
+              $products = $this->product_model->get_product()->result();
+              foreach ($products as $product) {
+                if (!file_exists(base_url('assets/img/product/'.$product->gambar))) {
+                  echo "<table class='table'>
+                          <tr>
+                            <td><img class='img-thumbnail' style='max-width:50px;' src='". base_url('assets/img/product/default.jpg') ."' alt='product'></td>
+                            <td><a href='". base_url('home/show_product/'.$product->id) ."'>". $product->nama_product ."</a><p>". $product->nama_kategory ."</p></td>
+                          </tr>
+                        </table>";
+                }
+              }
+             ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
+  <!-- <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
     </div>
     <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
     reserved.
-  </footer>
+  </footer> -->
 
   <!-- Control Sidebar -->
   
