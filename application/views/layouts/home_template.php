@@ -55,7 +55,9 @@
                 <?php 
                 $user = $this->ion_auth->user()->row();
                 echo "
-                <li><a href='#'><i class='fa fa-shopping-cart'></i></a></li>
+                <li><a href='". base_url('home/chart') ."'><i class='fa fa-shopping-cart'></i>
+                  
+                </a></li>
                 <li class='dropdown'>
                   <a href='#' class='dropdown-toggle' data-toggle='dropdown'>". $user->username ." <i class='caret'></i> </a>
                   <ul class='dropdown-menu'>

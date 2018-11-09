@@ -39,9 +39,9 @@
 				<div class="modal-body">
 					<table class="table">
 
-						<input type="text" value="<?php echo $product->id; ?>" name="id_product">
-						<input type="text" value="<?php echo $user->id; ?>" name="id_user">
-						<input type="text" value="<?php echo $product->harga ?>" name='harga'>
+						<input type="hidden" value="<?php echo $product->id; ?>" name="id_product">
+						<input type="hidden" value="<?php echo $user->id; ?>" name="id_user">
+						<input type="hidden" value="<?php echo $product->harga ?>" name='harga'>
 						<tr>
 							<th>Nama Product</th>
 							<th>Harga</th>

@@ -13,6 +13,8 @@ class Home extends CI_Controller {
 	{
 		$data = array();
 
+		$data['products'] = $this->product_model->get_product()->result();
+
 		$this->template->set('title','Home');
 		$this->template->load('home_template','content','home',$data);
 	}
@@ -29,7 +31,18 @@ class Home extends CI_Controller {
 
 	public function chart()
 	{
-		
+		$data = array();
+		$data['carts'] = $this->product_model->get_cart()->result();
+
+		$id_user 		= $this->input->post('id_user');
+		$id_product		= $this->input->post('id_product');
+		$harga			= $this->input->post('harga');
+		$qty			= $this->input->post('qty');
+
+		$this->product_model->insert_cart($qty, $id_user, $id_product, $harga);
+
+		$this->template->set('title','Cart');
+		$this->template->load('home_template','content','cart', $data);
 	}
 
 }

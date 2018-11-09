@@ -95,6 +95,33 @@ class Product_model extends CI_Model {
 	}
 
 
+	// model cart
+
+	public function insert_cart($qty, $id_user, $id_product, $harga)
+	{
+		$data = [
+			'qty'		=> $qty,
+			'id_user'	=> $id_user,
+			'id_product'=> $id_product,
+			'harga'		=> $harga
+		];
+
+		$this->db->insert('cart', $data);
+		return TRUE;
+	}
+
+	public function get_cart()
+	{
+		
+		$data = $this->db->query('SELECT * FROM product a INNER JOIN cart b ON a.id = b.id_product INNER JOIN users c on b.id_user = c.id');
+		return $data;
+	}
+
+	public function cart_count()
+	{
+		
+	}
+
 }
 
 /* End of file Product_model.php */
